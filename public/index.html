@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="L'intranet France Ouest Habitat est l'outil parfait pour gérer vos flux commerciaux">
+  <meta name="author" content="Caansoft">
+  <meta name="keyword" content="Isolation, rénovation, couverture, ventilation, humidité, ravalement, commercial">
+  <title>SD Foods</title>
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
+  <input type="hidden" value="%NODE_ENV%" id="node_env_mode" />
+  <script>
+    var mode = document.querySelector("#node_env_mode").value;
+    if (
+      mode === "production" &&
+      typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === "object"
+    ) {
+      window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () { };
+    }
+  </script>
+</body>
+
+</html>

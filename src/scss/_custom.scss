@@ -1,0 +1,279 @@
+// // Here you can add other styles
+
+@import '~react-agenda/build/styles';
+@import '~react-datetime/css/react-datetime';
+
+.login-logo {
+  //width: 100%;
+  height: auto;
+  border-radius: 0em;
+}
+
+.c-app-login {
+  color: #3c4b64;
+  background-color: #ebedef;
+  --color: #3c4b64;
+  background-size: cover;
+  // background-image: url('https://www.franceouesthabitat.com/wp-content/uploads/2018/03/shutterstock_37258447-1024x688-copie.png');
+  // background-image: url(https://akadia.fr/wp-content/uploads/2021/01/Entreprise-renovation-paris-00.webp);
+
+}
+
+
+
+.content-expanded {
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+
+
+.zoom-plus-icon {
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTI2IDE0aC00djhoLTh2NGg4djhoNHYtOGg4di00aC04di04em0tMi0xMGMtMTEuMDMgMC0yMCA4Ljk3LTIwIDIwczguOTcgMjAgMjAgMjAgMjAtOC45NyAyMC0yMC04Ljk3LTIwLTIwLTIwem0wIDM2Yy04LjgyIDAtMTYtNy4xOC0xNi0xNnM3LjE4LTE2IDE2LTE2IDE2IDcuMTggMTYgMTYtNy4xOCAxNi0xNiAxNnoiLz48cGF0aCBkPSJNMCAwaDQ4djQ4aC00OHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=)no-repeat;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+
+}
+
+.zoom-minus-icon {
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0OHY0OGgtNDh6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE0IDIydjRoMjB2LTRoLTIwem0xMC0xOGMtMTEuMDUgMC0yMCA4Ljk1LTIwIDIwczguOTUgMjAgMjAgMjAgMjAtOC45NSAyMC0yMC04Ljk1LTIwLTIwLTIwem0wIDM2Yy04LjgyIDAtMTYtNy4xOC0xNi0xNnM3LjE4LTE2IDE2LTE2IDE2IDcuMTggMTYgMTYtNy4xOCAxNi0xNiAxNnoiLz48L3N2Zz4=) no-repeat;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+}
+
+.schedule-icon {
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGg0OHY0OGgtNDh6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE1Ljc2IDYuNzhsLTIuNTctMy4wNi05LjE5IDcuNzEgMi41NyAzLjA2IDkuMTktNy43MXptMjguMjQgNC42NmwtOS4xOS03LjcxLTIuNTcgMy4wNiA5LjE5IDcuNzEgMi41Ny0zLjA2em0tMjAuMDEtMy40NGMtOS45NSAwLTE3Ljk5IDguMDYtMTcuOTkgMThzOC4wNCAxOCAxNy45OSAxOCAxOC4wMS04LjA2IDE4LjAxLTE4LTguMDYtMTgtMTguMDEtMTh6bS4wMSAzMmMtNy43MyAwLTE0LTYuMjctMTQtMTRzNi4yNy0xNCAxNC0xNCAxNCA2LjI3IDE0IDE0LTYuMjYgMTQtMTQgMTR6bTItMjJoLTR2NmgtNnY0aDZ2Nmg0di02aDZ2LTRoLTZ2LTZ6Ii8+PC9zdmc+) no-repeat;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+}
+
+.button-control {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  padding: 6px;
+  border-left: 1px solid #ccc;
+
+}
+
+
+.control-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+
+
+.control-buttons button {
+
+  width: 17%;
+}
+
+.MuiInputBase-root .Mui-disabled {
+  color: rgba(0, 0, 0, 0.78);
+  cursor: default;
+}
+
+
+.card-padding {
+  padding-bottom: 1.5rem;
+}
+
+.header-div {
+  display: flex;
+  justify-content: space-between;
+  padding: inherit;
+
+  .header-font {
+    padding-left: 0px;
+    font-size: 1.1875rem;
+    font-weight: 600;
+    margin-bottom: unset;
+  }
+}
+
+.customer-card-name {
+  display: flex;
+  padding: 0.5rem;
+  background-color: lavender;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.detail-margin {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.card-sub-heading {
+  margin-bottom: 0rem;
+  font-weight: 700;
+}
+
+.card-header {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.button-end {
+  text-align-last: end;
+}
+
+.view-order-header-padding {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.text-padding {
+  padding-right: 5px;
+}
+
+.header-font-size {
+  font-size: 13px;
+}
+
+.order-status {
+  padding: 5px;
+  background: black;
+  color: white;
+  border-radius: 4px;
+}
+
+.row-padding {
+  padding: 0.3rem
+}
+
+.header-background {
+  background-color: #fafbfc;
+  border-color: darkgray;
+}
+
+.col-headers-weight {
+  font-weight: bold;
+}
+
+.list-row-padding {
+  padding: 0.6rem;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+.left-padding {
+  padding-left: 0px;
+}
+
+.right-padding {
+  padding-right: 0px;
+}
+
+.comments-padding-margin {
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+.card-margin {
+  margin-bottom: 0px;
+}
+
+.button-margin {
+  margin: 0.5rem
+}
+
+.display-type {
+  display: flex;
+}
+
+.adjustment-column-padding {
+  padding-left: 0px;
+}
+
+.container-padding {
+  padding: 1.3rem;
+}
+
+.adjust-row-padding {
+  padding-top: 1.3rem;
+}
+
+.sub-header-row {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.adjust-button {
+  text-align-last: end;
+  padding: 1rem;
+}
+
+
+.floating-msg {
+  z-index: 1;
+  position: fixed;
+  left: 21%;
+  right: 2%;
+  bottom: 50%;
+  height: 50px;
+}
+
+.auto-complete-display .form-group .form-label {
+  display: none;
+}
+
+.ant-descriptions-view {
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  padding: 10px 24px;
+}
+
+.ant-descriptions-row > th,
+.ant-descriptions-row > td {
+  padding-bottom: 3px !important;
+}
+.ant-btn >span {
+  display: inline-flex !important;
+}
+.image-upload-grid {
+  border: 1px dashed #7B8794;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 22px;
+  border-radius: 4px;
+  text-align: center;
+  color: #000;
+  justify-content: center;
+}
+
+// responsive css
+@media (max-width: 768px) {
+  .ant-drawer-right > .ant-drawer-content-wrapper {
+    left: 0;
+  }
+
+  .ant-drawer .ant-drawer-body {
+    padding: 12px
+  }
+  .ant-layout-sider-trigger,
+  .ant-layout-sider.ant-layout-sider-collapsed {
+    max-width: 48px !important;
+    min-width: 48px !important;
+    flex: 0 0 48px !important;
+    width: 48px !important
+  }
+  .table-responsive-bg {
+    background: #fff;
+  }
+}
