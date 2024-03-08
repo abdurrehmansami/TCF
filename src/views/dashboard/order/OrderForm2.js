@@ -1,4 +1,5 @@
 import { Button, Col, Descriptions, Form, InputNumber, Row } from "antd";
+import { stringify, parse } from 'flatted';
 import dayjs from "dayjs";
 import {
   MyTextField,
@@ -230,8 +231,6 @@ function OrderForm2(props) {
     var formData = new FormData();
     let formatD = dayjs(values.expectedDeliveryTime).utc(true)
     let extratime = (formatD.hour() * 3600 + formatD.minute() * 60 + formatD.second()) * 1000
-    // values.deliveryDate = dayjs(formatD).valueOf() - extratime
-    let exDT = dayjs(formatD).valueOf() - extratime
     values.products.forEach(
       ({
         id,
@@ -242,9 +241,7 @@ function OrderForm2(props) {
         quantity,
         numberOfUnits,
         otherName,
-        substituteName,
-        exDT,
-        expectedDeliveryTime
+        substituteName
       }) => {
         const productLocations = [];        
         productLocation?.forEach(
@@ -290,9 +287,6 @@ function OrderForm2(props) {
           productLocation: productLocations,
           quantity,
           numberOfUnits,
-          expectedDeliveryDate,
-          expectedDeliveryTime, 
-          exDT,
           otherName: (otherName ? otherName : substituteName ? {
             name: substituteName,
             productId: id
@@ -314,29 +308,18 @@ function OrderForm2(props) {
      if (expectedDeliveryDate) {
         let formatD = dayjs(expectedDeliveryDate).utc(true)
         let extratime = (formatD.hour() * 3600 + formatD.minute() * 60 + formatD.second()) * 1000
-        products.map(product=>
-          product.expectedDeliveryDate = dayjs(formatD).valueOf() - extratime)
         values.expectedDeliveryDate = dayjs(formatD).valueOf() - extratime
       }
       if (expectedDeliveryTime) {
         let formatT = dayjs(expectedDeliveryTime).utc(true)
-        products.map(product=>
-          product.expectedDeliveryTime = dayjs(formatD).valueOf() - extratime)
         values.expectedDeliveryTime = (formatT.hour() * 3600 + formatT.minute() * 60 + formatT.second()) * 1000
       }
-    
-      console.log('expected',values.expectedDeliveryDateEach)
+      
+      const matchingSite = sites.data.content.find(site => site.name === values.site.name)
+
   
-      // const locationProducts = values.products.map((product) => ({
-        
-      //   product: product,
-      //   expectedDeliveryDate: product.expectedDeliveryDate,//product?.expectedDeliveryDate ? "123" : "",
-      //   expectedDeliveryTime: product.expectedDeliveryTime, 
-      //   location: { site }
-      // }));
       const locationProducts = values.products.map((product) => {
-        // const expectedDeliveryDateMillis = new Date(product.expectedDeliveryDate).getTime();
-        // const expectedDeliveryTimeMillis = new Date(product.expectedDeliveryTime).getHours();
+      
         const dateWithoutTime = new Date(product.expectedDeliveryDate);
         dateWithoutTime.setHours(0, 0, 0, 0); // Set time to midnight
         // const timeObject = new Date(product.expectedDeliveryTime);
@@ -347,14 +330,18 @@ function OrderForm2(props) {
         
         const timestamp = hours * 60 * 60 * 1000 + minutes * 60 * 1000;
         const combinedTimestamp = timestampDateWithoutTime + timestamp;
+        console.log('EACH',product)
 
         // Now 'timestamp' holds the total milliseconds since midnight.
         // combined ki jaga timestamp bhjdo
+
+        // sites.data.content.map(site=>site.name==product.name?{location:{site}}:null)
+        
         return {
           product: product,
           expectedDeliveryDate: timestampDateWithoutTime,
-          expectedDeliveryTime: combinedTimestamp, 
-          location: { site }
+          expectedDeliveryTime: timestamp, 
+         location: matchingSite
         };
       });
       
@@ -440,7 +427,7 @@ function OrderForm2(props) {
         let extratime = (formatD.hour() * 3600 + formatD.minute() * 60 + formatD.second()) * 1000
         let expectedDeliveryDate = dayjs(formatD).valueOf() - extratime
         let expectedDeliveryTime = (formatT.hour() * 3600 + formatT.minute() * 60 + formatT.second()) * 1000
-        
+        let newPartnerId = values.partnerId
         postData("orders", 
         {
           discountPercentage,
@@ -448,8 +435,8 @@ function OrderForm2(props) {
           employee,
           // products,
           totalAmount,
-          // expectedDeliveryDate: expectedDeliveryDate,
-          // expectedDeliveryTime: expectedDeliveryTime,
+          expectedDeliveryDate: expectedDeliveryDate,
+          expectedDeliveryTime: expectedDeliveryTime,
           partner: { id: partnerId },
           locationProducts
         }
@@ -504,6 +491,13 @@ function OrderForm2(props) {
   const onSelect = (option) => {
     const frm = form.getFieldsValue();
     frm.partnerId = option.id;
+    setTimeout(() => {
+      form.setFieldsValue(frm);
+    }, 100);    
+  };
+  const onSelect2 = (option) => {
+    const frm = form.getFieldsValue();
+    frm.siteId = option.id;
     setTimeout(() => {
       form.setFieldsValue(frm);
     }, 100);    
@@ -594,8 +588,8 @@ function OrderForm2(props) {
                 data={sites.data.content}
                 placeholder={t("Enter Site")}
                 displayKey={"name"}
-                name={'site'}
-                onSelect={onSelect}
+                name={["site","name"]}
+                onSelect={onSelect2}
                 label={t("Enter Site")}
                 required
               />
