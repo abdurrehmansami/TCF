@@ -73,6 +73,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
   } = theme.useToken();
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
   const { data: warehouses } = useFetch("warehouses", null, 1000);
+  const { data: sites } = useFetch("locations", null, 1000);
   const [data, setOrderData] = useState(orderData);
   const history = useHistory();
   const [loading, setLoading] = useState(false);
@@ -264,19 +265,37 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
   }, [orderData.status]);
 
   useEffect(() => {
-    if (warehouses?.data?.content?.length) {
+    // if (warehouses?.data?.content?.length) {
+    //   let loc = [], locOpt = [];
+    //   warehouses.data.content.forEach((warehouse) => {
+    //     warehouse.locations.forEach((location) => {
+    //       let locObj = {
+    //         // label: warehouse.name + " - " + location.name,
+    //         value: warehouse.name + " - " + location.name,
+    //         name: warehouse.name + " - " + location.name,
+    //         id: location.id,
+    //       };
+    //       loc.push(locObj);
+    //       // locOpt.push({label: JSON.stringify(warehouse.name + " - " + location.name), value: JSON.stringify(warehouse.name + " - " + location.name)})
+    //     });
+    //   });
+    //   setLocations(loc);
+    //   // setLocationOptions(locOpt);
+    //   setSubmitting(false);
+    // }
+    if (sites?.data?.content?.length) {
       let loc = [], locOpt = [];
-      warehouses.data.content.forEach((warehouse) => {
-        warehouse.locations.forEach((location) => {
+      sites.data.content.forEach((site) => {
+       
           let locObj = {
             // label: warehouse.name + " - " + location.name,
-            value: warehouse.name + " - " + location.name,
-            name: warehouse.name + " - " + location.name,
-            id: location.id,
+            value: site.name + " - " + site.address,
+            name: site.name + " - " + site.address,
+            id: site.id,
           };
           loc.push(locObj);
           // locOpt.push({label: JSON.stringify(warehouse.name + " - " + location.name), value: JSON.stringify(warehouse.name + " - " + location.name)})
-        });
+      
       });
       setLocations(loc);
       // setLocationOptions(locOpt);
@@ -354,19 +373,19 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                 title: t("PALLETS"),
                 sorter: (a, b) => a.quantity - b.quantity,
               },
-              {
-                dataIndex: "htPrice",
-                key: "htPrice",
-                title: t("PRICE_WW_VAT"),
-                sorter: (a, b) => a.htPrice - b.htPrice,
-              },
-              {
-                dataIndex: "priceVATinc",
-                key: "priceVATinc",
-                title: t("PRICE_INC_VAT"),
-                sorter: (a, b) => a.priceVATinc - b.priceVATinc,
-                render: text => text ? parseFloat(text).toFixed(2):  "" 
-              },
+              // {
+              //   dataIndex: "htPrice",
+              //   key: "htPrice",
+              //   title: t("PRICE_WW_VAT"),
+              //   sorter: (a, b) => a.htPrice - b.htPrice,
+              // },
+              // {
+              //   dataIndex: "priceVATinc",
+              //   key: "priceVATinc",
+              //   title: t("PRICE_INC_VAT"),
+              //   sorter: (a, b) => a.priceVATinc - b.priceVATinc,
+              //   render: text => text ? parseFloat(text).toFixed(2):  "" 
+              // },
               // {
               //   dataIndex: "htPrice",
               //   key: "htPrice",
@@ -2165,10 +2184,10 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
         <Descriptions.Item span={1} label={t("STATUS")}>
           {<Tag color="warning">{status}</Tag>}
         </Descriptions.Item>
-        <Descriptions.Item span={1} label={t("EXPECTED_DELIVERY")}>
+        {/* <Descriptions.Item span={1} label={t("EXPECTED_DELIVERY")}>
           {moment.utc(data.expectedDeliveryDate).format("DD/MM/YYYY")}{" "}
           {moment.utc(data.expectedDeliveryTime).format("HH:mm")}
-        </Descriptions.Item>
+        </Descriptions.Item> */}
         <Descriptions.Item span={2} label={t("VENDOR")}>
           {data.partner.name}
         </Descriptions.Item>

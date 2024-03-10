@@ -319,6 +319,17 @@ function OrderForm2(props) {
 
   
       const locationProducts = values.products.map((product) => {
+
+        const {
+          action,category,createdBy,createdOn,description,expectedDeliveryDate,expectedDeliveryTime,fields,flag,frozen,htPrice,imageUrl,isFresh,isExpiry,isOtherNamesDisabled,
+          key,orderupdatedOn,value,updatedBy,unit,tva,subCategory,ref,prestashopProductId,order,
+          productOtherNames,productLocation,priceVATinc,
+          id,
+          name,
+          quantity,
+          numberOfUnits,
+          otherName,  // Add other attributes you want to include
+        } = product;
       
         const dateWithoutTime = new Date(product.expectedDeliveryDate);
         dateWithoutTime.setHours(0, 0, 0, 0); // Set time to midnight
@@ -334,11 +345,16 @@ function OrderForm2(props) {
 
         // Now 'timestamp' holds the total milliseconds since midnight.
         // combined ki jaga timestamp bhjdo
-
-        // sites.data.content.map(site=>site.name==product.name?{location:{site}}:null)
         
         return {
-          product: product,
+          product: { action,category,createdBy,createdOn,description,expectedDeliveryDate,expectedDeliveryTime,fields,flag,frozen,htPrice,imageUrl,isFresh,isExpiry,isOtherNamesDisabled,
+            key,orderupdatedOn,value,updatedBy,unit,tva,subCategory,ref,prestashopProductId,order,
+            productOtherNames,productLocation,priceVATinc,
+            id,
+            name,
+            quantity,
+            numberOfUnits,
+            otherName},
           expectedDeliveryDate: timestampDateWithoutTime,
           expectedDeliveryTime: timestamp, 
          location: matchingSite
@@ -427,7 +443,6 @@ function OrderForm2(props) {
         let extratime = (formatD.hour() * 3600 + formatD.minute() * 60 + formatD.second()) * 1000
         let expectedDeliveryDate = dayjs(formatD).valueOf() - extratime
         let expectedDeliveryTime = (formatT.hour() * 3600 + formatT.minute() * 60 + formatT.second()) * 1000
-        let newPartnerId = values.partnerId
         postData("orders", 
         {
           discountPercentage,
