@@ -101,6 +101,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
   const [selectedProductNames, setSelectedProductNames] = useState([])
   const [productList, setProductList] = useState(null)
   const [Products, setProducts] = useState(null)
+  const [productsInCurrentOrder,setproductsInCurrentOrder] =  useState(null)
   console.log('selectedProductNames', selectedProductNames)
   console.log('productList', productList)
   console.log('Products', Products)
@@ -298,6 +299,23 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
       
       });
       setLocations(loc);
+      // setLocationOptions(locOpt);
+      setSubmitting(false);
+    }
+    if (orderData.products) {
+      let productsInOrder = [];
+      orderData.products.forEach((product) => {
+       
+          let locObj = {
+            // label: warehouse.name + " - " + location.name,
+            
+            id: product.id,
+          };
+          productsInOrder.push(locObj);
+          // locOpt.push({label: JSON.stringify(warehouse.name + " - " + location.name), value: JSON.stringify(warehouse.name + " - " + location.name)})
+      
+      });
+      setproductsInCurrentOrder(productsInOrder);
       // setLocationOptions(locOpt);
       setSubmitting(false);
     }
@@ -3134,6 +3152,44 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                               ]}
                                                             />
                                                           </Form.Item>
+                                                          <Col md={8}>
+                                                          {/* <Form.Item
+                                                            label={t("Product ID")}
+                                                            style={{marginBottom: 0}}
+                                                            name={[
+                                                              field.name,
+                                                              "product",
+                                                              // "label"
+                                                              "id",
+                                                            ]}
+                                                            required
+                                                          >
+                                                            <MuiAutocomplete
+                                                              {...field}
+                                                              required={true}
+                                                              disabled={readOnly}onSelect={(value) =>
+                                                                onChange(
+                                                                  value,
+                                                                  f.name,
+                                                                  field.key
+                                                                )
+                                                              }
+                                                              message={t(
+                                                                "PLEASE_SELECT_PRODUCT_ID"
+                                                              )}
+                                                              data={productsInCurrentOrder}
+                                                              placeholder={t(
+                                                                "Product ID"
+                                                              )}
+                                                              displayKey={"id"}
+                                                              name={[
+                                                                field.name,
+                                                                "product",
+                                                                "id",
+                                                              ]}
+                                                            />
+                                                          </Form.Item> */}
+                                                          </Col>
                                                         </Col>
                                                       ) : null}
                                                     </Row>
