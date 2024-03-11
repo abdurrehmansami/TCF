@@ -1297,7 +1297,8 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
         ...dd,
         products,
       };
-      postData(`orders/${orderData.id}/order-products/${values.products[0].id}/grn`, values)
+      const orderProdId = orderData.products[0].orderProductId
+      postData(`orders/${orderData.id}/order-products/${orderProdId}/grn`, values)
         .then((res) => {
           if (res && res.data) {
             getData(`orders/${orderData.id}/grn`)
@@ -3174,9 +3175,8 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                             style={{marginBottom: 0, width: '100%' }}
                                                             name={[
                                                               field.name,
-                                                              "product",
-                                                              // "label"
-                                                              "id",
+                                                              "orderProductId",
+                                                              
                                                             ]}
                                                             required
                                                           >
@@ -3200,8 +3200,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                               displayKey={"id"}
                                                               name={[
                                                                 field.name,
-                                                                "product",
-                                                                "id",
+                                                               "orderProductId"
                                                               ]}
                                                             />
                                                           </Form.Item> 
