@@ -697,7 +697,7 @@ const MainTable2 = ({
               key: "partners_name",
               sorter: true,
               render: (partner) => {
-                return <span>{partner.name}</span>;
+                return <span>{partner?.name}</span>;
               },
             },
             {

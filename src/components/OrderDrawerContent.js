@@ -391,6 +391,20 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                 title: t("PALLETS"),
                 sorter: (a, b) => a.quantity - b.quantity,
               },
+              {
+                dataIndex: "expectedDeliveryDate",
+                key: "expectedDeliveryDate",
+                title: t("Expected Delivery Date"),
+                render:  (text) => text ? moment(text).format('LL') : '-',
+                // sorter: (a, b) => a.quantity - b.quantity,
+              },
+              {
+                dataIndex: "expectedDeliveryTime",
+                key: "expectedDeliveryTime",
+                title: t("Expected Delivery Time"),
+                render: (text)=> text ? moment(text).format('LT') : '-',
+                // sorter: (a, b) => a.quantity - b.quantity,
+              },
               // {
               //   dataIndex: "htPrice",
               //   key: "htPrice",
@@ -1283,7 +1297,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
         ...dd,
         products,
       };
-      postData(`orders/${orderData.id}/grn`, values)
+      postData(`orders/${orderData.id}/order-products/${values.products[0].id}/grn`, values)
         .then((res) => {
           if (res && res.data) {
             getData(`orders/${orderData.id}/grn`)
@@ -2759,7 +2773,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                       </Row>
                                     );
                                   })}
-                                  {readOnly ? null : (
+                                  {/* {readOnly ? null : (
                                     <div
                                       style={{
                                         display: "flex",
@@ -2776,7 +2790,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                         <span>Add</span>
                                       </Button>
                                     </div>
-                                  )}
+                                  )} */}
                                 </>
                               )}
                             </Form.List>
@@ -3152,10 +3166,12 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                               ]}
                                                             />
                                                           </Form.Item>
-                                                          <Col md={8}>
-                                                          {/* <Form.Item
+                                                          <Col span={8}
+                                                          
+                                                          >
+                                                          <Form.Item
                                                             label={t("Product ID")}
-                                                            style={{marginBottom: 0}}
+                                                            style={{marginBottom: 0, width: '100%' }}
                                                             name={[
                                                               field.name,
                                                               "product",
@@ -3188,7 +3204,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                                 "id",
                                                               ]}
                                                             />
-                                                          </Form.Item> */}
+                                                          </Form.Item> 
                                                           </Col>
                                                         </Col>
                                                       ) : null}
@@ -3341,7 +3357,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
 
                         {showGRN && (
                           <>
-                            <Button
+                            {/* <Button
                               type="primary"
                               htmlType="button"
                               loading={loading}
@@ -3363,7 +3379,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                               }}
                             >
                               {t("STOCK & PUBLISH")}
-                            </Button>
+                            </Button> */}
                             {!isVirtualGRN && <Button
                               type="primary"
                               htmlType="button"

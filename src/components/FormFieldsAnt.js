@@ -135,7 +135,7 @@ export function MuiAutocomplete({
   const[option,setoption]=useState(data);
   // console.log("data ",data)
   const handleSearch = (value) => {
-    const suggestions = data.filter((option) => option.name.toLowerCase().includes(value.toLowerCase()));
+    const suggestions = data.filter((option) => option?.name?.toLowerCase().includes(value?.toLowerCase()));
     setoption(suggestions);    
   };
   // console.log(option,name,displayKey,label,data)
