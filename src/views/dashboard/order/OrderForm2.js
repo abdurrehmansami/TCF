@@ -630,8 +630,8 @@ function OrderForm2(props) {
                           field.name,
                         ]);
                         return (
-                          <Row key={field.name} gutter={20}>
-                            <Col xs={8}>
+                          <Row key={field.name} gutter={[16,24]}>
+                            <Col className="gutter-row" span={6}>
                               {products && (
                                 <MuiAutocomplete
                                   {...field}
@@ -669,7 +669,7 @@ function OrderForm2(props) {
                                 />
                               )}
                             </Col>                                                     
-                              <Col xs={8}>
+                              <Col className="gutter-row" span={6}>
                                 {products && (
                                   <MuiAutocomplete
                                     {...field}                                    
@@ -696,8 +696,8 @@ function OrderForm2(props) {
                                   />
                                 )}
                               </Col>  
-                              <Row gutter={20}>                 
-                            <Col xs={8} md={6}>
+                                              
+                            <Col className="gutter-row" span={6}>
                               <MyTextField
                                 disabled={
                                   row.readOnly ||
@@ -712,7 +712,7 @@ function OrderForm2(props) {
                                 type="text"
                               />
                             </Col>
-                            <Col xs={8} md={4}>
+                            {/* <Col xs={8} md={4}>
                               <MyTextField
                                 disabled={
                                   row.readOnly ||
@@ -728,8 +728,8 @@ function OrderForm2(props) {
                                   calculatePrice(form.getFieldsValue(),"quantity");
                                 }}
                               />
-                            </Col>
-                            <Col xs={8} md={4}>
+                            </Col> */}
+                            <Col className="gutter-row" span={6}>
                               <MyTextField
                                 disabled={
                                   row.readOnly ||
@@ -747,9 +747,9 @@ function OrderForm2(props) {
                                 val={values?.numberOfUnits || null}
                               />
                             </Col>
-                            </Row>
-                              <Row >     
-                                <Col xs={8} md={15}>
+                           
+                               
+                                <Col className="gutter-row" span={6}>
                                 
                                   {/* <Form.Item
                                     name="expectedDeliveryDateEach"
@@ -766,7 +766,7 @@ function OrderForm2(props) {
                                   </Form.Item>
 
                                 </Col>
-                                <Col xs={8} md={15} style={{marginTop:30}}>
+                                <Col className="gutter-row" span={6}>
                                   {/* <MyTimeField
                                     name="expectedDeliveryTime"
                                     // label={t("EXPECTED_DELIVERY_TIME")}
@@ -777,7 +777,7 @@ function OrderForm2(props) {
                                   </Form.Item>
 
                                 </Col> 
-                              </Row>
+                              
                                 <hr/>
                             <Col> 
                               <Form.Item label="&nbsp;">
