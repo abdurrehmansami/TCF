@@ -947,7 +947,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
       grnTableData.push({
         id: item.id,
         grnNumber: item.grnNumber,
-        isVirtual:item.isVirtual,
+        isVirtual:false,
         note: item.note,
         status: item.status,
         products: item.productLocation.map((loc) => ({
@@ -2916,13 +2916,13 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                   {/* <InfoCircleOutlined style={{color:'#808080', fontSize: 14}} /> */}
                                 </Popover>
                               </Col>
-                              {/* <Col>
+                              <Col>
                                 <Tooltip placement="top" title={lastAddedGRNStatus && "Virtual GRN can't be added back to back"}>
                                   <Form.Item name="isVirtual" valuePropName="checked" initialValue={false}>
-                                    <Checkbox disabled={lastAddedGRNStatus} onClick={handleVirtualGRNChange}>Virtual GRN</Checkbox>
+                                    <Checkbox disabled={true} onClick={handleVirtualGRNChange}>Virtual GRN</Checkbox>
                                   </Form.Item>
                                 </Tooltip>
-                              </Col> */}
+                              </Col>
                             </Row>
                           </Col>
                           <Col>
@@ -3230,10 +3230,10 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                                 "Product ID"
                                                               )}
                                                               displayKey={"id"}
-                                                              // name={[
-                                                              //   field.name,
-                                                              //  "orderProdID"
-                                                              // ]}
+                                                              name={[
+                                                                field.name,
+                                                               "orderProdID"
+                                                              ]}
                                                             />
                                                           </Form.Item> 
                                                           </Col>
