@@ -371,13 +371,21 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                 title: t("ID"),
                 sorter: (a, b) => a.id - b.id,
               },
+              // {
+              //   dataIndex: "otherName" ? ["otherName", "name"] : "name",
+              //   key: "name",
+              //   title: t("PRODUCT_NAME"),
+              //   sorter: (a, b) => a.name?.length - b.name?.length,
+              //   render: (text, record) =>
+              //     record.otherName ? text : record.name,
+              // },
               {
-                dataIndex: "otherName" ? ["otherName", "name"] : "name",
+                dataIndex: "name",
                 key: "name",
                 title: t("PRODUCT_NAME"),
                 sorter: (a, b) => a.name?.length - b.name?.length,
                 render: (text, record) =>
-                  record.otherName ? text : record.name,
+                  text,
               },
               {
                 dataIndex: "numberOfUnits",
@@ -642,16 +650,23 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
         let emptyFieldNames = []
         let emptyProdField = 0
         let damagedQtyGreaterThanReceived = []
-        values.products.forEach((product, i)=> {
-          if(product.name === "" || !product.name) {
-            emptyProdField+=1
+        values.products.forEach((product, i) => {
+          if (product.name === "" || !product.name) {
+            emptyProdField += 1
           } else {
-            product?.productLocation && product.productLocation.forEach((entry, i)=>{
-              if(!entry.receivedNumberofUnits || entry.receivedNumberofUnits == '') {emptyFields+=1; emptyFieldNames.push({product: product?.name, position: i+1, field: 'Received Qty'})}
-              else if(entry.damageNumberOfUnits && entry.damageNumberOfUnits?.length != 0 && (entry.damageNumberOfUnits > entry.receivedNumberofUnits)){ damagedQtyGreaterThanReceived.push({product: product?.name, position: i+1}); };
-              if(entry.location.name == '') {emptyFields+=1; emptyFieldNames.push({product: product?.name, position: i+1, field: 'Location'})}
-              if((product.isFresh ||product.isExpiry) && entry.lotNumber == '') {emptyFields+=1; emptyFieldNames.push({product: product?.name, position: i+1, field: 'Lot Number'})}
-              if(product.isExpiry && entry.expiry == '') {emptyFields+=1; emptyFieldNames.push({product: product?.name, position: i+1, field: 'Expiry Date'})}
+            product?.productLocation && product.productLocation.forEach((entry, i) => {
+              if (!entry.receivedNumberofUnits || entry.receivedNumberofUnits == '')
+              
+               { emptyFields += 1; emptyFieldNames.push({ product: product?.name, position: i + 1, field: 'Received Qty' }) }
+
+              else if (entry.damageNumberOfUnits && entry.damageNumberOfUnits?.length != 0 && (entry.damageNumberOfUnits > entry.receivedNumberofUnits)) 
+              { damagedQtyGreaterThanReceived.push({ product: product?.name, position: i + 1 }); };
+              if (entry.location.name == '')
+               { emptyFields += 1; emptyFieldNames.push({ product: product?.name, position: i + 1, field: 'Location' }) }
+              if ((product.isFresh || product.isExpiry) && entry.lotNumber == '') 
+              { emptyFields += 1; emptyFieldNames.push({ product: product?.name, position: i + 1, field: 'Lot Number' }) }
+              if (product.isExpiry && entry.expiry == '')
+               { emptyFields += 1; emptyFieldNames.push({ product: product?.name, position: i + 1, field: 'Expiry Date' }) }
             })
           }
         })
@@ -1119,14 +1134,16 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
             lotNumber,
             receivedNumberofUnits,
             receivedPallets,
+            orderProdID
           }) => {
             productLocations.push({
               damageNumberOfUnits,
               expiry,
-              locationId: locationId,
+              locationId: data.site.id,
               lotNumber,
               receivedNumberofUnits,
               receivedPallets,
+              orderProdID
             });
           }
         );
@@ -1326,7 +1343,8 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
         ...dd,
         products,
       };
-      const orderProdId = orderData.products[0].orderProductId
+      const orderProdId = products[0].productLocation[0].orderProdID
+      console.log('PROD',products, 'dd',dd);
       postData(`orders/${orderData.id}/order-products/${orderProdId}/grn`, values)
         .then((res) => {
           if (res && res.data) {
@@ -2919,7 +2937,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                               <Col>
                                 <Tooltip placement="top" title={lastAddedGRNStatus && "Virtual GRN can't be added back to back"}>
                                   <Form.Item name="isVirtual" valuePropName="checked" initialValue={false}>
-                                    <Checkbox disabled={true} onClick={handleVirtualGRNChange}>Virtual GRN</Checkbox>
+                                    {/* <Checkbox disabled={true} onClick={handleVirtualGRNChange}>Virtual GRN</Checkbox> */}
                                   </Form.Item>
                                 </Tooltip>
                               </Col>
@@ -3064,7 +3082,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                           </Form.Item>
                                                         </Col>
                                                       )}
-                                                      <Col span={8}>
+                                                      {/* <Col span={8}>
                                                         <Form.Item
                                                           label={t(
                                                             "RECEIVED_PALLETS"
@@ -3084,7 +3102,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                             required
                                                           />
                                                         </Form.Item>
-                                                      </Col>
+                                                      </Col> */}
                                                       <Col span={8}>
                                                         <Form.Item
                                                           label={t(
@@ -3199,11 +3217,11 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                               ]}
                                                             />
                                                           </Form.Item>
-                                                          <Col span={8}
+                                                          <Col span={10}
                                                           
                                                           >
                                                           <Form.Item
-                                                            label={t("Product ID")}
+                                                            label={t("Order Product ID")}
                                                             style={{marginBottom: 0, width: '100%' }}
                                                             name={[
                                                               field.name,
@@ -3227,7 +3245,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                               )}
                                                               data={productsInCurrentOrder}
                                                               placeholder={t(
-                                                                "Product ID"
+                                                                "Order Product ID"
                                                               )}
                                                               displayKey={"id"}
                                                               name={[
@@ -3261,7 +3279,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                             <Col span={24}>
                                                             <Form.Item label={i === 0 ? " " : null} /*style={{ marginBottom: 0 }}*/>
                                                               <Tooltip placement="top" title={isVirtualGRN && "This button can't be used in Virtual GRN"}>
-                                                                <Button
+                                                                {/* <Button
                                                                   type="dashed"
                                                                   icon={<PlusCircleOutlined />}
                                                                   style={{ color: isVirtualGRN ? '#abadaf' : "green", borderColor: isVirtualGRN ? '#abadaf' : "green", marginBottom: 0 }}
@@ -3296,7 +3314,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                                       }
                                                                     );
                                                                   }}
-                                                                />
+                                                                /> */}
                                                               </Tooltip>
                                                             </Form.Item></Col>
                                                           ) : null}
@@ -3337,6 +3355,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                 );
                               })}
                               {/* {isAddProductVisible && ( */}
+                              {fields.length === 0 && (
                               <div
                                 style={{
                                   display: "flex",
@@ -3361,7 +3380,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                   <span>Add Product</span>
                                 </Button>
                               </div>
-                              {/* )} */}
+                               )} 
                             </>
                           )}}
                         </Form.List>
