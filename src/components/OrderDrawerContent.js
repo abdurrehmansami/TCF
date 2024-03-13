@@ -1139,7 +1139,7 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
             productLocations.push({
               damageNumberOfUnits,
               expiry,
-              locationId: data.site.id,
+              locationId: data.site,
               lotNumber,
               receivedNumberofUnits,
               receivedPallets,
