@@ -365,12 +365,12 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
             dataSource={data.products}
             pagination={data.products.length > 10}
             columns={[
-              {
-                dataIndex: "id",
-                key: "id",
-                title: t("ID"),
-                sorter: (a, b) => a.id - b.id,
-              },
+              // {
+              //   dataIndex: "id",
+              //   key: "id",
+              //   title: t("ID"),
+              //   sorter: (a, b) => a.id - b.id,
+              // },
               // {
               //   dataIndex: "otherName" ? ["otherName", "name"] : "name",
               //   key: "name",
@@ -661,12 +661,14 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
 
               else if (entry.damageNumberOfUnits && entry.damageNumberOfUnits?.length != 0 && (entry.damageNumberOfUnits > entry.receivedNumberofUnits)) 
               { damagedQtyGreaterThanReceived.push({ product: product?.name, position: i + 1 }); };
-              if (entry.location.name == '')
-               { emptyFields += 1; emptyFieldNames.push({ product: product?.name, position: i + 1, field: 'Location' }) }
+              // if (entry.location.name == '')
+              //  { emptyFields += 1; emptyFieldNames.push({ product: product?.name, position: i + 1, field: 'Location' }) }
               if ((product.isFresh || product.isExpiry) && entry.lotNumber == '') 
               { emptyFields += 1; emptyFieldNames.push({ product: product?.name, position: i + 1, field: 'Lot Number' }) }
               if (product.isExpiry && entry.expiry == '')
                { emptyFields += 1; emptyFieldNames.push({ product: product?.name, position: i + 1, field: 'Expiry Date' }) }
+               if (!entry.orderProdID)
+               {emptyFields += 1; emptyFieldNames.push({ product: product?.name, position: i + 1, field: 'orderProdID' })}
             })
           }
         })
@@ -707,6 +709,14 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                   <ol style={{fontSize: 12}}>
                   {emptyFieldNames.map((item,i)=>(
                     item.field === 'Location' &&
+                    <li key={i}>Product: <b>{item?.product}</b>, Entry#: <b>{item?.position}</b></li>
+                  ))}
+                  </ol>
+                </p>}
+                {emptyFieldNames.filter(item=>item.field === 'orderProdID').length !== 0 && <p><b>Order Product Id:</b>
+                  <ol style={{fontSize: 12}}>
+                  {emptyFieldNames.map((item,i)=>(
+                    item.field === 'orderProdID' &&
                     <li key={i}>Product: <b>{item?.product}</b>, Entry#: <b>{item?.position}</b></li>
                   ))}
                   </ol>
@@ -1053,24 +1063,24 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                   sorter: (a, b) =>
                     a.damageNumberOfUnits - b.damageNumberOfUnits,
                 },
-                {
-                  dataIndex: "receivedPallets",
-                  key: "receivedPallets",
-                  title: t("Received Pallets"),
-                  sorter: (a, b) => a.receivedPallets - b.receivedPallets,
-                },
-                {
-                  dataIndex: "lotNumber",
-                  key: "lotNumber",
-                  title: t("Lot Number"),
-                  sorter: (a, b) => a.lotNumber - b.lotNumber,
-                },
-                {
-                  dataIndex: "expiry",
-                  key: "expiry",
-                  title: t("Expiry"),
-                  sorter: (a, b) => a.expiry - b.expiry,
-                },
+                // {
+                //   dataIndex: "receivedPallets",
+                //   key: "receivedPallets",
+                //   title: t("Received Pallets"),
+                //   sorter: (a, b) => a.receivedPallets - b.receivedPallets,
+                // },
+                // {
+                //   dataIndex: "lotNumber",
+                //   key: "lotNumber",
+                //   title: t("Lot Number"),
+                //   sorter: (a, b) => a.lotNumber - b.lotNumber,
+                // },
+                // {
+                //   dataIndex: "expiry",
+                //   key: "expiry",
+                //   title: t("Expiry"),
+                //   sorter: (a, b) => a.expiry - b.expiry,
+                // },
                 {
                   dataIndex: "location",
                   key: "location",
@@ -3169,57 +3179,12 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                           </Form.Item>
                                                         </Col>
                                                       )}
-                                                      {locations?.length/*locationOptions?.length*/ ? (
+                                                    
                                                         <Col md={8}>
-                                                          <Form.Item
-                                                            label={t("LOCATION")}
-                                                            style={{marginBottom: 0}}
-                                                            name={[
-                                                              field.name,
-                                                              "location",
-                                                              // "label"
-                                                              "name",
-                                                            ]}
-                                                            // initialValue={locationOptions[0].label ?? ''}
-                                                            required
-                                                          >
-                                                            {/* <Select
-                                                              showSearch
-                                                              placeholder="Select a location"
-                                                              optionFilterProp="name"
-                                                              onChange={value=>onChange(value, f.name, field.key)}
-                                                              filterOption={(input, option) =>(option?.name ?? "").toLowerCase().includes(input.toLowerCase())}
-                                                              options={locations}
-                                                            /> */}
-                                                            <MuiAutocomplete
-                                                              {...field}
-                                                              required={true}
-                                                              disabled={readOnly}
-                                                              onSelect={(value) =>
-                                                                onChange(
-                                                                  value,
-                                                                  f.name,
-                                                                  field.key
-                                                                )
-                                                              }
-                                                              message={t(
-                                                                "PLEASE_SELECT_A_LOCATION"
-                                                              )}
-                                                              data={locations}
-                                                              placeholder={t(
-                                                                "SELECT_A_LOCATION"
-                                                              )}
-                                                              displayKey={"name"}
-                                                              name={[
-                                                                field.name,
-                                                                "location",
-                                                                "name",
-                                                              ]}
-                                                            />
-                                                          </Form.Item>
-                                                          <Col span={10}
+                                                         
                                                           
-                                                          >
+                                                          
+                                                          
                                                           <Form.Item
                                                             label={t("Order Product ID")}
                                                             style={{marginBottom: 0, width: '100%' }}
@@ -3254,9 +3219,9 @@ const OrderDrawerContent = ({ data: orderData, handleAction }) => {
                                                               ]}
                                                             />
                                                           </Form.Item> 
-                                                          </Col>
+                                                       
                                                         </Col>
-                                                      ) : null}
+                                                    
                                                     </Row>
                                                   </Col>
                                                   <Col span={2}>
